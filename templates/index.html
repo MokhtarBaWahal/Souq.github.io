@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <img class="image-store" src="{{ url_for('store_image', merchant_id=1) }}">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+           <ul class="nav nav-tabs">
+               {% for category in data["categories"] %}
+                   <li class="nav-item">
+                    <a class="nav-link" href="/{{data['merchant_id']}}?section={{category[0]}}" style="margin-right: 40px;">{{category[0]}}</a>
+                   </li>
+               {% endfor %}
+            </ul>
+
+          </div>
+    </nav>
+
+    <div class="product-grid">
+        {% for product in data["products"] %}
+            <div class="product-item" >
+                <div class="product-image">
+                    <img src="{{ url_for('product_image', product_id=product.item_id, merchant_id=product.merchant_id) }}" alt="{{ product.name }}">
+                </div>
+                <div class="card-body">
+                  <a class="card-title" href="{{ url_for('item_page', merchant_id =product.merchant_id, item_id = product.item_id ) }}">{{ product.name }}</a>
+                  <p class="card-text">السعر: {{ product.price }} دولار</p>
+                    <button type="button" class="btn btn-outline-success custom-button-width">إضافة للسلة</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
+
